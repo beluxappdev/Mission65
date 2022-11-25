@@ -26,6 +26,7 @@ Getting to the insights is very easy, as we have done the heavy lifting for you:
 
 > Then change the data source: by changing 4 and clicking on 5, where you’ll be able to browse for the file that you generated earlier!
 (The extracted file can be found in the folder `01.ExtractSecureScore` and contains the current date in the filename.)
+
 ![](images/report-4-5.png)
 
 > Finally click ok in the first window, close in the second one and you should be good to go!
