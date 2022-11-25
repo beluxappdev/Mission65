@@ -4,9 +4,8 @@
 # Only subscriptions with appropriate permissions will list a score.
 Connect-AzAccount
 
-# Set the CSV file to be created in your Downloads folder
-$MyCSVPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path + "\MySecureScores.csv"
-
+# Set the CSV file to be created in the current folder
+$MyCSVPath = [System.Environment]::CurrentDirectory + "\MySecureScores_" + $(get-date -f yyyy-MM-dd_HH-mm) +".csv"
 # Get all tenants accessible by the current identity
 $MyAzTenants = Get-AzTenant
 foreach ($MyAzTenant in $MyAzTenants)
