@@ -1,5 +1,8 @@
 # Mission65
 
+## Get the materials
+
+1. Download (or Clone) this repo locally to your PC (windows), which has power BI installed
 
 ## Extracting the information from your tenants
 
