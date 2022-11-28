@@ -1,8 +1,5 @@
 # Feedback can be provided to Hans Hofkens (hans.hofkens@microsoft.com)
 
-#Set ExecutionPolicy
-Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
 #Check if Module AZ.Security is installed with a minimum version of 1.3.0
 $update = "az"
 
@@ -24,7 +21,7 @@ foreach($checkmodule in $update){
 Connect-AzAccount
 
 # Set the CSV file to be created in the Downloads folder
-$MyCSVPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path + $(get-date -f yyyy-MM-dd_HH-mm) + ".csv"
+$MyCSVPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path + "\" + $(get-date -f yyyy-MM-dd_HH-mm) + ".csv"
 
 # Get all tenants accessible by the current identity
 $MyAzTenants = Get-AzTenant
