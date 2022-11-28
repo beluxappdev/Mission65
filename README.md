@@ -1,8 +1,9 @@
 # Mission65
 
-## Get the materials
+## Get the materials and pre-requisites
 
-1. Download (or Clone) this repo locally to your PC (windows), which has power BI installed
+1. Make sure you have Powershell 7.x.x or up to run the script in this repo.
+2. Download (or Clone) this repo locally to your PC (windows), which has power BI installed
 
 ## Extracting the information from your tenants
 
