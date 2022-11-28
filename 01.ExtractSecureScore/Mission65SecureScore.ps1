@@ -1,15 +1,24 @@
 # Feedback can be provided to Hans Hofkens (hans.hofkens@microsoft.com)
 
+#Check if Module AZ.Security is installed with a minimum version of 1.3.0
+$update = "az"
+
+foreach($checkmodule in $update){
+  $version = (Get-InstalledModule -Name $checkmodule) | Sort-Object Version -Descending  | Select-Object Version -First 1
+  if($version -eq $null) {
+    write-host "Checking Module: AZ was not found, we'll need to install it so the script can function!"
+    Install-Module -Name Az -scope currentUser -verbose -AllowClobber -MinimumVersion 9.1.1
+   } 
+   else {
+    Write-Output "Checking Module AZ: $version was found"
+    Write-Output "Updating anyway, just to be sure"
+    Update-Module -Name Az -verbose -RequiredVersion 9.1.1
+   }
+}
+
 # Connect with the identity for which you would like to check Secure Score
 # Only subscriptions with appropriate permissions will list a score.
 Connect-AzAccount
-
-#Check if Module AZ.Security is installed with a minimum version of 1.3.0
-$update = "az.security"
-foreach($checkmodule in $update){
-  $version = (Get-Module -ListAvailable $checkmodule) | Sort-Object Version -Descending  | Select-Object Version -First 1
-  if($version -eq $null) {write-host "Checking Module: AZ.Security was not found, we'll need to install it so the script can function!" ; Install-Module -Name Az.security -scope currentUser -verbose -AllowClobber -MinimumVersion 1.3.0} else {Write-Output "Checking Module AZ.Security: $version was found"}
-}
 
 # Set the CSV file to be created in the Downloads folder
 $MyCSVPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path + $(get-date -f yyyy-MM-dd_HH-mm) + ".csv"
