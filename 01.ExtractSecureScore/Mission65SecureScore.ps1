@@ -44,7 +44,7 @@ foreach ($MyAzTenant in $MyAzTenants)
         {
             # Create an array containing the Secure Score data
             $MyCSVRow = @( [pscustomobject]@{
-                Date = (Get-Date).Date;
+                $Date = (Get-Date).Date;
                 TenantName = $MyAzTenant.Name;
 
                 SubscriptionID = $MyAzSubscription.Id;
