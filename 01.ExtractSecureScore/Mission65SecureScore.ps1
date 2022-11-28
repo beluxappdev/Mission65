@@ -11,8 +11,9 @@ foreach($checkmodule in $update){
   if($version -eq $null) {write-host "Checking Module: AZ.Security was not found, we'll need to install it so the script can function!" ; Install-Module -Name Az.security -scope currentUser -verbose -AllowClobber -MinimumVersion 1.3.0} else {Write-Output "Checking Module AZ.Security: $version was found"}
 }
 
-# Set the CSV file to be created in the current folder
-$MyCSVPath = [System.Environment]::CurrentDirectory + "\MySecureScores_" + $(get-date -f yyyy-MM-dd_HH-mm) +".csv"
+# Set the CSV file to be created in the Downloads folder
+$MyCSVPath = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path + $(get-date -f yyyy-MM-dd_HH-mm) + ".csv"
+
 # Get all tenants accessible by the current identity
 $MyAzTenants = Get-AzTenant
 foreach ($MyAzTenant in $MyAzTenants)
