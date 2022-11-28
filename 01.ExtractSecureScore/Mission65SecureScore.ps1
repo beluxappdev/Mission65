@@ -1,5 +1,8 @@
 # Feedback can be provided to Hans Hofkens (hans.hofkens@microsoft.com)
 
+#Set ExecutionPolicy
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
 #Check if Module AZ.Security is installed with a minimum version of 1.3.0
 $update = "az"
 
