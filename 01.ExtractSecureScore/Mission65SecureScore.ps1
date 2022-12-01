@@ -1,23 +1,33 @@
 # Feedback can be provided to Hans Hofkens (hans.hofkens@microsoft.com)
 
+Write-Output "Starting Script...."
+
 #Set Execution Policy
 Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
 
-#Check if Module AZ.Security is installed with a minimum version of 1.3.0
-$update = "az"
+#Trusting Microsoft PowerShell Gallery
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -SourceLocation https://www.powershellgallery.com/api/v2
 
-foreach($checkmodule in $update){
-  $version = (Get-InstalledModule -Name $checkmodule) | Sort-Object Version -Descending  | Select-Object Version -First 1
-  if($version -eq $null) {
-    write-host "Checking Module: AZ was not found, we'll need to install it so the script can function!"
-    Install-Module -Name Az -scope currentUser -verbose -AllowClobber -MinimumVersion 9.1.1
-   } 
-   else {
-    Write-Output "Checking Module AZ: $version was found"
-    Write-Output "Updating anyway, just to be sure"
-    Update-Module -Name Az -verbose -RequiredVersion 9.1.1
-   }
-}
+
+Write-Output "Installing PackageManagement Module"
+install-module -name PackageManagement -scope CurrentUser -AllowClobber -Force
+
+Write-Output "Updating PackageManagement Module"
+update-module -Name PackageManagement
+
+
+Write-Output "Installing PowerShellGet Module"
+install-module -name PowerShellGet -scope CurrentUser -AllowClobber -Force -RequiredVersion 2.2.5
+
+Write-Output "Updating PowerShellGet Module"
+update-module -Name PowerShellGet 
+
+Write-Output "Installing AZ Module"
+Install-Module -Name az -scope currentUser -AllowClobber 
+
+Write-Output "Updating AZ Module"
+Update-Module -Name az 
+
 
 # Connect with the identity for which you would like to check Secure Score
 # Only subscriptions with appropriate permissions will list a score.
@@ -47,7 +57,7 @@ foreach ($MyAzTenant in $MyAzTenants)
         {
             # Create an array containing the Secure Score data
             $MyCSVRow = @( [pscustomobject]@{
-                $Date = (Get-Date).Date;
+                Date = (Get-Date).Date;
                 TenantName = $MyAzTenant.Name;
 
                 SubscriptionID = $MyAzSubscription.Id;
